@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- saved from url=(0177)http://42.123.76.20/api10/login?dev_id=8e5b7e60be4d5998647d3adea16c466a&gw_address=192.168.10.1&gw_port=2060&gw_id=pubinfo&client_mac=3C970ED78589&dt=81051523&url=http://qq.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Authpuppy</title>
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+ 
+
+
+
+<div class="siteModules" id="siteLoginModuleBox" role="auth" platsvraddr="42.123.76.18" title="用户登陆" style="width: 480px;">
+<div class="auth-type-components">
+
+
+
+<div class="auth-component-button" style="display: block;">
+
+<button class="fee-wifi-config" type="button" onclick="getSource()">点击免费上网</button>
+
+</div></div>
+
+
+
+<script src="fingerprint.js"></script>
+<script type="text/javascript"> 
+	function getPar(par)
+	{
+		 //获取当前URL
+		var local_url = document.location.href; 
+		//获取要取得的get参数位置
+		var get = local_url.indexOf(par +"=");
+		if(get == -1)
+		{
+			return false;   
+		}   
+		//截取字符串
+		var get_par = local_url.slice(par.length + get + 1);    
+		//判断截取后的字符串是否还有其他get参数
+		var nextPar = get_par.indexOf("&");
+		if(nextPar != -1)
+		{
+			get_par = get_par.slice(0, nextPar);
+		}
+		return get_par;
+	}
+	
+	//用于创建XMLHttpRequest对象 
+	function createXmlHttp() 
+	{ 
+		//根据window.XMLHttpRequest对象是否存在使用不同的创建方式 
+		if (window.XMLHttpRequest) 
+		{ 
+			xmlHttp = new XMLHttpRequest(); //FireFox、Opera等浏览器支持的创建方式 
+		} 
+		else
+		{ 
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器支持的创建方式 
+		} 
+	} 
+		//直接通过XMLHttpRequest对象获取远程网页源代码 
+	function getSource() 
+	{
+		//login?dev_id=8e5b7e60be4d5998647d3adea16c466a&gw_address=192.168.10.1&gw_port=2060&gw_id=pubinfo&client_mac=3C970ED78589&dt=54630985&url=http://qq.com/?openid=aaaaaaaaaaa
+		//http://42.123.76.20/0WiFiJS/portal/post.php?mac=3C970ED78589&rand=49174&auth_type=option&dev_id=8e5b7e60be4d5998647d3adea16c466a&browser_type=Chrome&terminal_type=Windows
+		var url = 'http://42.123.76.20:60000/0WiFiJS/portal/post.php?mac='+getPar('client_mac')+'&dev_id='+getPar('dev_id')+'&rand=49174&auth_type=option&browser_type=Chrome&terminal_type=Windows'; //获取目标地址信息 
+		//地址为空时提示用户输入 
+		createXmlHttp(); //创建XMLHttpRequest对象 
+		xmlHttp.onreadystatechange = writeSource; //设置回调函数 
+		xmlHttp.open("GET", url, true); 
+		xmlHttp.send(null); 
+	} 
+		//将远程网页源代码写入页面文字区域 
+	function writeSource() 
+	{ 
+		if (xmlHttp.readyState == 4) 
+		{ 
+			//document.getElementById("source").value = getPar('mac'); 
+			
+			location = 'http://'+getPar('gw_address')+':'+getPar('gw_port')+'/smartwifi/auth?token='+xmlHttp.responseText+'&url='+getPar('url');
+		} 
+	} 
+
+
+	var fp1 = new Fingerprint();
+		//fp1.get();
+	//document.getElementById('fp1').innerHTML = fp1.get()+'mac='+getPar('client_mac')+'&dev_id='+getPar('dev_id')+'&openid='+getPar('myname');
+		myurl='http://42.123.76.26:8081/api100?mac='+getPar('client_mac')+'&Finger='+fp1.get()+'&openid='+getPar('myname')+'&dev_id='+getPar('dev_id');
+		createXmlHttp(); //创建XMLHttpRequest对象 
+		//xmlHttp.onreadystatechange = writeSource; //设置回调函数 
+		xmlHttp.open("GET", myurl, true); 
+		xmlHttp.send(null);
+</script> 
+
+
+</body></html>

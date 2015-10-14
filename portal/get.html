@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+ <div id="divCustomers"></div>
+   <script type="text/javascript">   
+var localHandler = function(data){   
+var html = '<ul>';
+            for(var i = 0; i < data.data.length; i++)
+            {
+                 html += '<li>' + data.data[i].label + '>>' + data.data[i].value + '</li>';
+            }
+            html += '</ul>';
+            document.getElementById('divCustomers').innerHTML = html;
+    };    </script>
+    <script type="text/javascript" src="http://42.123.76.20:60000/0WiFiJS/portal/gettoken.php?jsoncallback=localHandler&gw_address=192.168.10.1&gw_port=2060&dev_id=8e5b7e60be4d5998647d3adea16c466a&url=http://qq.com/&client_mac=3C970ED78589&wechattoken=&gw_id=808110B8D236&mac=3C970ED78589"></script>
+</body>
+</html> 
